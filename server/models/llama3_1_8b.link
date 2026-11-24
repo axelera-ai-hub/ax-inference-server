@@ -1,0 +1,5 @@
+#!/bin/bash
+set -e
+wget -q --show-progress -O "./llama3_1_8b.tar.gz" "https://media.axelera.ai/artifacts/experimental/ax_inference_server/models/llama3_1_8b.tar.gz"
+tar -xzf "./llama3_1_8b.tar.gz"
+rm -f "./llama3_1_8b.tar.gz"

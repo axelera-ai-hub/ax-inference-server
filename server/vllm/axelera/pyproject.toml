@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vllm-axelera"
+version = "0.0.1"
+description = "Out-of-tree vLLM backend for the Axelera Metis AIPU (Qwen3, single-user prototype)."
+requires-python = ">=3.10"
+dependencies = ["numpy==2.2.6", "axelera-runtime==1.9.0", "axelera-firmware==1.9.0"]
+
+[project.optional-dependencies]
+test = ["pytest", "transformers==5.20.2"]
+# The scripts/ demo/chat clients (demo_client.py, chat.py) -- plain OpenAI-API clients,
+# not needed by the plugin itself.
+client = ["openai==3.42.1", "prompt_toolkit", "alive_progress==3.3.0"]
+
+# vLLM discovers the platform via this entry point group. `register` returns the
+# fully-qualified platform class name when a Metis device is usable, else None.
+[project.entry-points."vllm.platform_plugins"]
+axelera = "axplugin:register"
+
+# Registers the attention-free Axelera model for the target architectures so
+# vLLM skips paged KV. Inert unless the Axelera runtime is importable.
+[project.entry-points."vllm.general_plugins"]
+axelera_model = "axplugin:register_model"
+
+[tool.setuptools.packages.find]
+include = ["axplugin*"]
+
+[tool.ruff]
+line-length = 99
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+ignore = ["E501"]  # ruff-format handles code line length; long comments/docstrings are fine
+
+[tool.ruff.lint.isort]
+known-first-party = ["axplugin"]

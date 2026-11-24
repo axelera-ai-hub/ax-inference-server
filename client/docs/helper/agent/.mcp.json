@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "pipeline-editor-gui": {
+      "command": "../../../ui/gui/.venv/bin/python3",
+      "args": ["../../../ui/gui/agent_mcp_server.py"],
+      "env": {
+        "GUI_APP_BASE_URL": "http://127.0.0.1:${GUI_APP_PORT:-8080}"
+      }
+    }
+  }
+}

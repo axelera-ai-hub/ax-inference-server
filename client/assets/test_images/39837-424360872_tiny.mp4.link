@@ -1,0 +1,3 @@
+#!/bin/bash
+set -e
+wget -q --show-progress -O "./39837-424360872_tiny.mp4" "https://media.axelera.ai/artifacts/experimental/ax_inference_server/media/39837-424360872_tiny.mp4"

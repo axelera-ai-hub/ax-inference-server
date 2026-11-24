@@ -1,0 +1,100 @@
+
+syntax = "proto3";
+package axinfer.v1;
+
+// gRPC interface of the inference server: send one encoded image, receive detections
+// and/or classifications.
+
+// Axis-aligned box in pixels.
+message BoundingBox {
+  uint32 x = 1;  // left edge
+  uint32 y = 2;  // top edge
+  uint32 w = 3;  // width
+  uint32 h = 4;  // height
+}
+
+// A 2D point with an optional confidence (used for keypoints, landmarks, polygons).
+message Point2D {
+  float x = 1;
+  float y = 2;
+  optional float confidence = 3;
+}
+
+// A class prediction with its score.
+message ClassScore {
+  uint32 class_id = 1;
+  string label    = 2;
+  float  score    = 3;
+}
+
+// A feature vector identified by key.
+message NamedEmbedding {
+  string key           = 1;
+  repeated float vector = 2;
+}
+
+// One detected object with optional per-object attributes.
+message Detection {
+  uint32      class_id = 1;
+  string      label    = 2;
+  float       score    = 3;
+  BoundingBox bbox     = 4;
+
+  // Per-object classification results.
+  repeated ClassScore classifications = 5;
+
+  // Pose keypoints.
+  repeated Point2D keypoints = 6;
+
+  // Segmentation polygon points.
+  repeated Point2D segmentation = 7;
+
+  // Tracker identity and recent boxes.
+  optional string      track_id      = 8;
+  repeated BoundingBox track_history = 9;
+
+  // Face box and landmarks associated with this detection.
+  optional BoundingBox face_bbox      = 10;
+  repeated Point2D     face_landmarks = 11;
+
+  // Field numbers and names of removed embedding fields; superseded by `embeddings`.
+  reserved 12, 13;
+  reserved "embedding", "reid_embedding";
+  repeated NamedEmbedding embeddings = 14;
+}
+
+// Outcome of a request.
+enum InferenceStatus {
+  COMPLETE = 0;  // processed normally
+  DROPPED  = 1;  // discarded by the pipeline; see FrameResult.status_message
+}
+
+// Result for one image.
+message FrameResult {
+  // Detected objects.
+  repeated Detection detections = 1;
+
+  // Image-level classification results.
+  repeated ClassScore classifications = 2;
+
+  // Echo of InferRequest.request_id, when provided.
+  optional string request_id = 3;
+
+  // Set when the request was processed or dropped.
+  optional InferenceStatus status = 4;
+
+  // Drop reason when status is DROPPED.
+  optional string status_message = 5;
+}
+
+// One image to run through the pipeline.
+message InferRequest {
+  bytes           image_data = 1;  // encoded image (e.g. JPEG/PNG)
+  optional string request_id = 2;  // caller-chosen id, echoed in the result
+}
+
+// Single-image inference service.
+service AxInference {
+  // Run one image through the pipeline and return its result.
+  rpc Infer(InferRequest) returns (FrameResult);
+}

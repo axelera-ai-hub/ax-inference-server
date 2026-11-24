@@ -1,0 +1,59 @@
+#gui-annotate-root {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+}
+.gui-annotate-highlight {
+    position: fixed;
+    box-sizing: border-box;
+    border: 3px solid var(--gac, #ff5252);
+    box-shadow: 0 0 10px 1px var(--gac, #ff5252);
+    pointer-events: none;
+    animation: gui-annotate-pulse 1.4s ease-in-out infinite;
+}
+.gui-annotate-highlight--dialog {
+    border-width: 4px;
+}
+@keyframes gui-annotate-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+.gui-annotate-label {
+    position: fixed;
+    background: var(--gac, #ff5252);
+    color: #fff;
+    font: 600 13px/1.3 sans-serif;
+    padding: 6px 10px;
+    border-radius: 6px;
+    max-width: 260px;
+    pointer-events: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+.gui-annotate-pointer-dot {
+    position: fixed;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--gac, #ff5252);
+    border: 2px solid #fff;
+    pointer-events: none;
+}
+.gui-annotate-pointer-dot::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 2px solid var(--gac, #ff5252);
+    animation: gui-annotate-dot-pulse 1.2s ease-out infinite;
+}
+@keyframes gui-annotate-dot-pulse {
+    0% { transform: scale(0.6); opacity: 0.9; }
+    100% { transform: scale(2.2); opacity: 0; }
+}
+.gui-annotate-arrow-svg {
+    position: fixed;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+}

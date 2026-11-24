@@ -1,0 +1,2 @@
+#!/bin/bash
+aws s3 cp "s3://axelera-cst-artifacts/inference_server/axelera_runtime/axelera_runtime-1.9.0rc5.post0+d20261029-glibc234-cp310-cp310-linux_x86_64.whl" "./axelera_runtime-1.9.0rc5.post0+d20261029-glibc234-cp310-cp310-linux_x86_64.whl"

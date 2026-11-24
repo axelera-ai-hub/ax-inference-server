@@ -1,0 +1,5 @@
+#!/bin/bash
+set -e
+wget -q --show-progress -O "./smolvlm2-256m-video-instruct.tar.gz" "https://media.axelera.ai/artifacts/experimental/ax_inference_server/models/smolvlm2-256m-video-instruct.tar.gz"
+tar -xzf "./smolvlm2-256m-video-instruct.tar.gz"
+rm -f "./smolvlm2-256m-video-instruct.tar.gz"

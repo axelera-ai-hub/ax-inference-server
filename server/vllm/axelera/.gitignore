@@ -1,0 +1,11 @@
+# Personal: points pyright at this dev's vllm venv/checkout (see pyproject.toml).
+pyrightconfig.json
+
+# Compiled device artifacts the tests load
+artifacts/
+
+.venv/
+.venv-chroot/
+
+__pycache__/
+*.egg-info/

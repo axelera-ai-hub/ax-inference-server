@@ -1,0 +1,22 @@
+[project]
+name = "inference-server-deployment"
+version = "0.1.0"
+description = "FastAPI host server that triggers setup.sh and accepts pipeline YAML uploads"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi==0.162.0",
+    "uvicorn[standard]==0.54.0",
+    "pydantic==2.14.2",
+    "python-multipart==0.0.32",
+    "pyyaml==6.0.3",
+    "python-dotenv==1.2.4",
+]
+
+[tool.setuptools]
+py-modules = ["host_server", "launch_remote"]
+
+[tool.deployment]
+default_container_name = "inference-server-sdk190"
+default_yaml_upload_dir = "deployment/uploaded_yaml"
+default_bind_host = "0.0.0.0"
+default_bind_port = 8088

@@ -1,0 +1,5 @@
+#!/bin/bash
+set -e
+wget -q --show-progress -O "./qwen3-0.6b.tar.gz" "https://media.axelera.ai/artifacts/experimental/ax_inference_server/models/qwen3-0.6b.tar.gz"
+tar -xzf "./qwen3-0.6b.tar.gz"
+rm -f "./qwen3-0.6b.tar.gz"
