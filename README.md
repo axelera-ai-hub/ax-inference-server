@@ -1,4 +1,4 @@
-![Axelera Inference Server](server/docs/assets/axelera_inference_server_banner.png)
+[![Axelera Inference Server: click to watch the video](server/docs/assets/axelera_inference_server_banner_play.png)](https://media.axelera.ai/artifacts/experimental/ax_inference_server/media/axelera_inference_server_explainer_for_github.mp4)
 
 > ⚠️ **Experimental reference implementation.** `ax_inference_server` provides a
 > reference implementation as-is to demonstrate serving vision, VLM, and LLM
